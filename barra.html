@@ -24,11 +24,11 @@
                 </div>
                 <div class="cb-time js-timer-area cb-active">
                     <span class="cb-time-area js-timer-color countdown-color-yellow" id="timer">
-                        <div class="cb-time-text cb-hour inactive"><span class="js-cb-day">00</span><div class="cb-time-label">days</div></div>
+                        <div class="cb-time-text cb-hour inactive"><span class="js-cb-day">{{days}}</span><div class="cb-time-label">days</div></div>
                         <div class="time-separator invisible">:</div>
-                        <div class="cb-time-text cb-hour inactive"><span class="js-cb-hour">00</span><div class="cb-time-label">hrs</div></div>
+                        <div class="cb-time-text cb-hour inactive"><span class="js-cb-hour">{{thours}}</span><div class="cb-time-label">hrs</div></div>
                         <div class="time-separator invisible">:</div>
-                        <div class="cb-time-text cb-hour"><span class="js-cb-minute">{{minutes}}</span><div class="cb-time-label">mins</div></div>
+                        <div :class="classMinutes"><span class="js-cb-minute">{{tminutes}}</span><div class="cb-time-label">mins</div></div>
                         <div class="time-separator invisible">:</div>
                         <div class="cb-time-text cb-hour"><span class="js-cb-second">{{segunds}}</span><div class="cb-time-label">secs</div></div>
                     </span>
