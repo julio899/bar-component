@@ -23,7 +23,14 @@
                     <a class="js-cb-button js-cb-bar-button cb-button cb-not-clear btn-color-custom" href="https://app.convertbar.com/addClick?bar_id=1661&amp;redirect=https://affiliates.host1plus.com/ref/ktuxca.html" style="background-color: rgb(0, 86, 182); color: white;"><span class="cb-button-text js-button-text">Hosting VPS</span></a>
                 </div>
                 <div class="cb-time js-timer-area cb-active">
-                    <span class="cb-time-area js-timer-color countdown-color-yellow" id="timer">
+                    <div id="timer">
+                    Dias: {{tdia}} Horas:{{thours}} minutos:{{ tminutes }} Seg: {{segunds}}
+                    <!--
+                    <contador v-if="tminutes!=Infinity&&thours!=Infinity" :datos="tdia,hours,thours,tminutes,classMinutes,segunds,globalSegunds"></contador>
+                    {{days}}
+                    
+                    -->   
+                        <!--
                         <div class="cb-time-text cb-hour inactive"><span class="js-cb-day">{{days}}</span><div class="cb-time-label">days</div></div>
                         <div class="time-separator invisible">:</div>
                         <div class="cb-time-text cb-hour inactive"><span class="js-cb-hour">{{thours}}</span><div class="cb-time-label">hrs</div></div>
@@ -31,7 +38,8 @@
                         <div :class="classMinutes"><span class="js-cb-minute">{{tminutes}}</span><div class="cb-time-label">mins</div></div>
                         <div class="time-separator invisible">:</div>
                         <div class="cb-time-text cb-hour"><span class="js-cb-second">{{segunds}}</span><div class="cb-time-label">secs</div></div>
-                    </span>
+                        -->
+                    </div>
                 </div>
             </div>
         </div>
