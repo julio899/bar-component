@@ -1,8 +1,8 @@
 // define
 var CounterComponent = Vue.extend({
 	props:['tdia','hours','segunds','thours','tminutes','classMinutes','globalSegunds'],
-  	//template: '<span class="cb-time-area js-timer-color countdown-color-yellow"><div class="cb-time-text cb-hour inactive"><span class="js-cb-day">{{Math.trunc(globalSegunds/86400)}}</span><div class="cb-time-label">days</div></div><div class="time-separator invisible">:</div><div class="cb-time-text cb-hour inactive"><span class="js-cb-hour">{{thours}}</span><div class="cb-time-label">hrs</div></div>                        <div class="time-separator invisible">:</div>                        <div :class="classMinutes"><span class="js-cb-minute">{{tminutes}}</span><div class="cb-time-label">mins</div></div>   <div class="time-separator invisible">:</div>  <div class="cb-time-text cb-hour"><span class="js-cb-second">{{segunds}}</span><div class="cb-time-label">secs</div></div></span>',
-  	template:'<span>{{globalSegunds}} D:{{tdia}} h:{{thours}}</span>',
+  	template: '<span class="cb-time-area js-timer-color countdown-color-yellow"><div class="cb-time-text cb-hour inactive"><span class="js-cb-day">{{Math.trunc(globalSegunds/86400)}}</span><div class="cb-time-label">days</div></div><div class="time-separator invisible">:</div><div class="cb-time-text cb-hour inactive"><span class="js-cb-hour">{{thours}}</span><div class="cb-time-label">hrs</div></div>                        <div class="time-separator invisible">:</div>                        <div :class="classMinutes"><span class="js-cb-minute">{{tminutes}}</span><div class="cb-time-label">mins</div></div>   <div class="time-separator invisible">:</div>  <div class="cb-time-text cb-hour"><span class="js-cb-second">{{segunds}}</span><div class="cb-time-label">secs</div></div></span>',
+  	//template:'<span>{{globalSegunds}} D:{{tdia}} h:{{thours}} m:{{tminutes}} s:{{segunds}}</span>',
 })
 // register
 Vue.component('contador', CounterComponent)
@@ -80,13 +80,23 @@ var contador = new Vue({
 			
 
 			//console.log( 't minutes '+self.minutes );
-			console.log( ((self.minutes/60)-60) );
-			//60m ->100%
-			//?		
-        	if( ((self.thours*60)-cantidadMinutes)>0 )
-				self.thours=Math.trunc(((self.globalSegunds/60)-(self.thours*60))/60);
+			//[MINUTOS]
+			if((((self.minutes*60)-self.globalSegunds)*-1)==0){
+				console.log( ((self.minutes*60)-self.globalSegunds)*-1 );
+				console.log((self.minutes)+' h:'+(self.thours) +' D:'+self.days)
+				console.log( self.minutes - ((self.thours*60) + ((self.days*24)*60))  )
+				self.tminutes=(self.minutes - ((self.thours*60) + ((self.days*24)*60)));
+				//solventar min 0
+				if(self.tminutes==0){
+					if(self.tminutes==0&&self.globalSegunds>59){
+						self.tminutes=59;
+					}else{
+						self.tminutes=0;
+					}
+				}else{self.tminutes=self.tminutes-1;}
+			}
 
-
+			self.tdia=self.days;
 
 			
 			dec=((this.globalSegunds/60)-this.tminutes)*100;
@@ -104,45 +114,7 @@ var contador = new Vue({
 			        }
 	
         	}
-        	
-        	/*
-		self.tminutes=self.tminutes;
-        	self.dias=self.days;
-        	//Validacion de HORA
-        	if(self.thours > 0 && self.globalSegunds/(3600) < self.thours ){ self.thours--; self.hours--; }else{ self.thours=23; }
-  			          
-  			           if(self.segunds>0)
-			           {
-			           		self.segunds--;
-			           }else{
-			           		if(self.globalSegunds>60){
-			           			self.segunds=59;	
-							    //self.minutes--;
-							     
-							     // Minutes
-							     if(self.tminutes>0)
-							     {
-							     	self.tminutes--;	
-							     }else{
-							     	self.tminutes=59;
-							     }
-						        
-			           		}else{
-			           			self.segunds=self.globalSegunds;
-			           		}
-			           }
-
-		           if(self.globalSegunds>0&&self.segunds>0){self.globalSegunds--;}
-
-
-			       //if(self.globalSegunds<60&&self.minutes>0){self.minutes--;}
-			       //if(self.globalSegunds<3600&&self.hours>0){self.hours--;}
-			     
-
-			       if(Math.trunc( self.globalSegunds/(3600*24) )< self.days && self.days>0){ self.days--; }
-
-			       */
-        }, 100);
+        }, 1);
   },
   ready:function ready(){
   	
@@ -156,7 +128,7 @@ var contador = new Vue({
   getTime: function () {	
   	//buscar el total general de segundos
   	//con ese valor se desglosaran los demas valores
-  	this.globalSegunds=86400*3;//86405*2;
+  	this.globalSegunds=86400/2;//86405*2;
   	if(Math.trunc(this.globalSegunds/60)>0)
   		this.minutes=Math.trunc(this.globalSegunds/60);
   	
