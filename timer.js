@@ -88,10 +88,17 @@ var contador = new Vue({
 				self.tminutes=(self.minutes - ((self.thours*60) + ((self.days*24)*60)));
 				//solventar min 0
 				if(self.tminutes==0){
-					if(self.tminutes==0&&self.globalSegunds>59){
+					//if(self.tminutes==0&&self.globalSegunds>59){
+					if(self.tminutes==0 && self.globalSegunds>59){
 						self.tminutes=59;
 					}else{
-						self.tminutes=0;
+								console.log('tmin'+self.tminutes+'  '+self.minutes)
+						if (self.minutes<60){
+
+								console.log('zero min')
+						}else{
+								self.tminutes=0;
+							}
 					}
 				}else{self.tminutes=self.tminutes-1;}
 			}
@@ -106,15 +113,20 @@ var contador = new Vue({
 				{
 					self.segunds--;
 				}else{
+							self.segunds=59;
 			           		if(self.globalSegunds>60){
 			           			self.segunds=59;						        
 			           		}else{
 			           			self.segunds=self.globalSegunds;
 			           		}
+							/*sincronizamos los minutos*/	
+							console.log('hora:'+self.thours +' minutes:'+self.minutes );
+							if(self.minutes==59)
+								self.tminutes=59;
 			        }
 	
         	}
-        }, 1);
+        }, 1000);
   },
   ready:function ready(){
   	
@@ -128,7 +140,7 @@ var contador = new Vue({
   getTime: function () {	
   	//buscar el total general de segundos
   	//con ese valor se desglosaran los demas valores
-  	this.globalSegunds=86400/2;//86405*2;
+  	this.globalSegunds=3605*2;//86405*2;
   	if(Math.trunc(this.globalSegunds/60)>0)
   		this.minutes=Math.trunc(this.globalSegunds/60);
   	
